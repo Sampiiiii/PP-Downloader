@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "pp-downloader"
+version = "0.5.0"
+description = "Downloads your youtube playlists with plex metadata c:"
+authors = ["Your Name <you@example.com>"]
+license = "GPL3"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+yt-dlp = "^2023.11.16"
+python-dotenv = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
