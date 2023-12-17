@@ -12,7 +12,7 @@ RUN if [ "$ARCH" = "arm64" ]; then \
         wget --no-cache -O ffmpeg.tar.xz https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linuxarm64-gpl.tar.xz && tar -xf ffmpeg.tar.xz && mv ffmpeg-master-latest-linuxarm64-gpl/bin/* /usr/local/bin; \
     elif [ "$ARCH" = "amd64" ]; then \
         echo "Downloading FFmpeg for AMD64..."; \
-        wget --no-cache -O ffmpeg.tar.xz https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz && tar -xf ffmpeg.tar.xz && mv ffmpeg-master-latest-linuxamd64-gpl/bin/* /usr/local/bin; \
+        wget --no-cache -O ffmpeg.tar.xz https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz && tar -xf ffmpeg.tar.xz && mv ffmpeg-master-latest-linux64-gpl/bin/* /usr/local/bin; \
     else \
         echo "Architecture not Recognised, adjust your Dockerfile!"; \
     fi
