@@ -14,3 +14,23 @@ the way this works is relatively simple but you build it with the following
 
 docker build --build-arg ARCH=arm64 --build-arg SLEEP_TIME=30 -t pp_downloader .
 ```
+
+The JSON File should be in the root of the volume you mount the docker container to download to and should look something like this:
+```json
+{
+   "jazz" : "https://www.youtube.com/playlist?list=PLkKEwrqC_3hw73ktWYyZUpywRYuYWGbQO",
+   "not-jazz": "https://www.youtube.com/playlist?list=PLkKEwrqC_3hwQgz9MuCiDkGcSKsHvSKXP"
+}
+```
+this will create the following in the mounted volume
+```
+volume
+├── jazz
+│   └── ...
+├── not-jazz
+│   └── ...
+├── not-jazz_archive.txt
+└── playlists.json
+
+```
+To hook into plex all you need to do is point plex at the volume and tell it to prefer local metadata and it should just work.
