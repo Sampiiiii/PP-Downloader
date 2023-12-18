@@ -37,8 +37,6 @@ ENV PARENT_DIR="/app/music"
 ENV FFMPEG_PATH="/usr/local/bin/ffmpeg"
 ENV JSON_PATH="/app/music/playlists.json"
 ENV PATH="/usr/local/bin:$PATH"
-ARG SLEEP_TIME
-ENV SLEEP_TIME=${SLEEP_TIME}
 
 # Run the script
-CMD while true; do python main.py; sleep $SLEEP_TIME; done
+CMD python main.py

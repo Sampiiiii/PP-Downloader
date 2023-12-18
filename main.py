@@ -1,3 +1,6 @@
+import signal
+import threading
+
 from yt_dlp import YoutubeDL
 from dotenv import load_dotenv
 import json
@@ -7,8 +10,8 @@ import os
 load_dotenv()
 
 
-# Load playlists from a JSON file
-def load_playlists(file_path):
+# Load configuration from a JSON file
+def load_config(file_path):
     with open(file_path, 'r') as file:
         return json.load(file)
 
@@ -18,8 +21,10 @@ parent_dir = os.getenv('PARENT_DIR')
 ffmpeg_path = os.getenv('FFMPEG_PATH')
 json_path = os.getenv('JSON_PATH')
 
-# Load playlists
-playlists = load_playlists(json_path)
+# Load configuration
+config = load_config(json_path)
+playlists = config['playlists']
+sleep_time = int(config['sleep_time'])
 
 # Global archive file for tracking all downloads
 global_archive_file = os.path.join(parent_dir, 'global_archive.txt')
@@ -57,6 +62,9 @@ def download_playlist(playlist_url, target_dir, base_ydl_opts):
         print(f"Error processing playlist: {e}")
 
 
+# Event for managing sleep/wait
+sleep_event = threading.Event()
+
 # Base download options with a global archive file
 base_download_options = {
     "format": "bestaudio/best",
@@ -72,8 +80,31 @@ base_download_options = {
     "download_archive": global_archive_file
 }
 
-# Ensure target directories exist and download each playlist
-for playlist_name, playlist_url in playlists.items():
-    target_dir = os.path.join(parent_dir, playlist_name)
-    os.makedirs(target_dir, exist_ok=True)
-    download_playlist(playlist_url, target_dir, base_download_options)
+
+def handle_sigint(signum, frame):
+    print("SIGINT signal received.")
+    exit(0)
+
+
+def handle_sigterm(signum, frame):
+    print("SIGTERM signal received.")
+    exit(0)
+
+
+if __name__ == "__main__":
+    signal.signal(signal.SIGINT, handle_sigint)
+    signal.signal(signal.SIGTERM, handle_sigterm)
+
+    while True:
+        print("Starting download process.")
+        for playlist_name, playlist_url in playlists.items():
+            target_dir = os.path.join(parent_dir, playlist_name.replace('/', '_'))
+            os.makedirs(target_dir, exist_ok=True)
+            download_playlist(playlist_url, target_dir, base_download_options)
+        print(f"Download process completed. Sleeping for {sleep_time} seconds.")
+
+        # Wait for sleep_time or until the event is set
+        sleep_event.wait(sleep_time)
+        if sleep_event.is_set():
+            break
+        sleep_event.clear()
