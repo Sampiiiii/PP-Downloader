@@ -10,16 +10,18 @@ the way this works is relatively simple but you build it with the following
 
 ```bash
 # Arch can be etiher amd64 (x86_64 architecure) or arm64(64bit arm)
-# Sleep time is how long the script waits before it runs again
 
-docker build --build-arg ARCH=arm64 --build-arg SLEEP_TIME=30 -t pp_downloader .
+docker build --build-arg ARCH=arm64 -t pp_downloader .
 ```
 
 The JSON File should be in the root of the volume you mount the docker container to download to and should look something like this:
 ```json
 {
-   "jazz" : "https://www.youtube.com/playlist?list=PLkKEwrqC_3hw73ktWYyZUpywRYuYWGbQO",
-   "not-jazz": "https://www.youtube.com/playlist?list=PLkKEwrqC_3hwQgz9MuCiDkGcSKsHvSKXP"
+  "playlists": {
+       "jazz" : "https://www.youtube.com/playlist?list=PLkKEwrqC_3hw73ktWYyZUpywRYuYWGbQO",
+       "not-jazz": "https://www.youtube.com/playlist?list=PLkKEwrqC_3hwQgz9MuCiDkGcSKsHvSKXP",
+    },
+  "sleep_time": 86400
 }
 ```
 this will create the following in the mounted volume
@@ -29,7 +31,7 @@ volume
 │   └── ...
 ├── not-jazz
 │   └── ...
-├── not-jazz_archive.txt
+├── global-archive.txt
 └── playlists.json
 
 ```
