@@ -1,0 +1,7 @@
+{
+  "playlists": {
+    "jazz": "https://www.youtube.com/playlist?list=PLkKEwrqC_3hw73ktWYyZUpywRYuYWGbQO",
+    "not-jazz": "https://www.youtube.com/playlist?list=PLkKEwrqC_3hwQgz9MuCiDkGcSKsHvSKXP"
+  },
+  "sleep_time": 86400
+}

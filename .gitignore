@@ -1,3 +1,4 @@
 music/**
 .env
 **/playlists.json
+!**/playlists.json.example

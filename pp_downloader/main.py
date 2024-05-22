@@ -17,7 +17,7 @@ def load_config(file_path):
 
 
 # Set the parent directory, FFmpeg path, and JSON path
-parent_dir = os.getenv('PARENT_DIR')
+parent_dir = os.getenv('MUSIC_PARENT_DIR')
 ffmpeg_path = os.getenv('FFMPEG_PATH')
 json_path = os.getenv('JSON_PATH')
 
@@ -76,6 +76,7 @@ base_download_options = {
     "ffmpeg_location": ffmpeg_path,
     "writethumbnail": True,
     "noplaylist": False,
+    "noplaylist_metafiles": True,
     "ignoreerrors": True,
     "download_archive": global_archive_file
 }
