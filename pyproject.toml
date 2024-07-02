@@ -9,7 +9,7 @@ packages = [{ include = "pp_downloader" }]
 
 [tool.poetry.dependencies]
 python = "^3.12"
-yt-dlp = "^2024.4.9"
+yt-dlp = "^2024.7.1"
 python-dotenv = "^1.0.0"
 
 [build-system]
